@@ -12,42 +12,28 @@ export class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    name: '',
+
     filter: '',
-    number: '',
   };
 
-  handleSubmit = evt => {
-    evt.preventDefault();
-
-    const name = Object.values({ ...evt.target }).find(
-      item => item?.name === 'name'
-    ).value;
-
-    const phone = Object.values({ ...evt.target }).find(
-      item => item?.name === 'number'
-    ).value;
-
-    if (this.state.contacts.find(contact => contact.name === name))
+  handleSubmit = newContact => {
+    if (
+      this.state.contacts.find(
+        contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+      )
+    )
       return alert('This contact has already added');
 
-    this.setState(state => ({
-      ...state,
-      name,
-      contacts: [...state.contacts, { id: nanoid(), name, phone }],
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, { id: nanoid(), ...newContact }],
     }));
   };
 
-  handleFilterChange = ({ target }) =>
-    this.setState(state => ({
-      ...state,
-      filter: target.value,
-    }));
+  handleFilterChange = ({ target }) => this.setState({ filter: target.value });
 
   handleDeleteContact = id =>
-    this.setState(state => ({
-      ...state,
-      contacts: state.contacts.filter(contact => contact.id !== id),
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
 
   render() {
