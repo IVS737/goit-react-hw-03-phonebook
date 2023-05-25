@@ -6,6 +6,7 @@ export class ContactForm extends Component {
     number: '',
   };
   handleSubmit = e => {
+    e.preventDefault();
     const { submit } = this.props;
 
     submit({ ...this.state });
@@ -18,7 +19,7 @@ export class ContactForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.submit}>
+      <form onSubmit={this.handleSubmit}>
         <p>Name</p>
         <input
           type="text"

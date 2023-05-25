@@ -36,16 +36,29 @@ export class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
 
+  getFilteredContact = () => {
+    return this.state.contacts.filter(({ name }) =>
+      name.toLowerCase().includes(this.state.filter.toLowerCase())
+    );
+  };
+
   render() {
+    const filteredContacts = this.getFilteredContact();
     return (
       <div className={styles.Container}>
+        <h1>Phonebook</h1>
         <ContactForm submit={this.handleSubmit} />
+
+        <h2>Contacts</h2>
+        <input
+          name="filter"
+          onChange={this.handleFilterChange}
+          value={this.state.filter}
+        />
 
         <ContactList
           onDeleteContact={this.handleDeleteContact}
-          onInputChange={this.handleFilterChange}
-          contacts={this.state.contacts}
-          filter={this.state.filter}
+          contacts={filteredContacts}
         />
       </div>
     );
