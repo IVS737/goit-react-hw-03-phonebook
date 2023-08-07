@@ -52,7 +52,7 @@ export class App extends Component {
     const filteredContacts = this.getFilteredContact();
     return (
       <div className={styles.Container}>
-        <h1>Phonebook</h1>
+        <h1>Phone-book</h1>
         <ContactForm submit={this.handleSubmit} />
 
         <h2>Contacts</h2>
